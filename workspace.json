@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "projects": {},
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
+  "projects": {
+    "react-rtq": "apps/react-rtq"
   }
 }
