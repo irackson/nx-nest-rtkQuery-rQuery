@@ -43,7 +43,8 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "react-rtq:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "apps/react-rtq/proxy.conf.json"
       },
       "configurations": {
         "production": {

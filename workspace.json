@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "nest-server": "apps/nest-server",
     "react-rtq": "apps/react-rtq"
   }
 }
