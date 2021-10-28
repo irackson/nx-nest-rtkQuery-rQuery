@@ -1,11 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import type { Todo } from '@nest-todos/shared-types';
 
-export interface Todo {
-    id: number;
-    text: string;
-    active: boolean;
-    done: boolean;
-}
+import { Injectable } from '@nestjs/common';
 
 export const initialTodos: Todo[] = [
     'NestJS',

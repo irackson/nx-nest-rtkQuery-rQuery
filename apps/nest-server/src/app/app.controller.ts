@@ -10,7 +10,8 @@ import {
     Req,
 } from '@nestjs/common';
 
-import { AppService, Todo } from './app.service';
+import { AppService } from './app.service';
+import type { Todo } from '@nest-todos/shared-types';
 
 @Controller()
 export class AppController {
