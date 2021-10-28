@@ -11,6 +11,11 @@ export class AppController {
         return this.appService.getData();
     }
 
+    @Get('seedData') // GET http://localhost:3333/api/seedData
+    seedData() {
+        return this.appService.seedData();
+    }
+
     @Post() // POST http://localhost:3333/api
     create(@Body() { text }: { text: string }) {
         return this.appService.add(text);

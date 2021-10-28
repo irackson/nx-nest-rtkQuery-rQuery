@@ -6,12 +6,25 @@ interface Todo {
     done: boolean;
 }
 
+export const initialTodos: Todo[] = [
+    { id: 0, text: 'Learn NestJS', done: false },
+    { id: 1, text: 'Learn TypeScript', done: false },
+    { id: 2, text: 'Learn GraphQL', done: false },
+];
+
 @Injectable()
 export class AppService {
     private todos: Todo[] = [];
 
     getData(): Todo[] {
         return this.todos;
+    }
+
+    seedData() {
+        console.log('hi');
+
+        this.todos = initialTodos;
+        return { message: `seed ${this.todos.length} todo(s)` };
     }
 
     add(text: string) {
