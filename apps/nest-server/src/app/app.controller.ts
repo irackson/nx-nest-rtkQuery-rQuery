@@ -1,6 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    Param,
+    Post,
+    Put,
+    Req,
+} from '@nestjs/common';
 
-import { AppService } from './app.service';
+import { AppService, Todo } from './app.service';
 
 @Controller()
 export class AppController {
@@ -11,9 +21,13 @@ export class AppController {
         return this.appService.getData();
     }
 
-    @Get('seedData') // GET http://localhost:3333/api/seedData
-    seedData() {
-        return this.appService.seedData();
+    // get a single Todo using query parameters
+    // GET http://localhost:3333/api/find?id=1
+    @Get('/find?')
+    find(@Req() request: Request) {
+        const id = request['query'].id;
+
+        return this.appService.getOne(parseInt(id));
     }
 
     @Post() // POST http://localhost:3333/api
@@ -21,8 +35,23 @@ export class AppController {
         return this.appService.add(text);
     }
 
-    @Post('setDone') // POST http://localhost:3333/api/setDone
-    setDone(@Body() { id, done }: { id: number; done: boolean }) {
-        return this.appService.setDone(id, done);
+    @Put(':id') // PUT http://localhost:3333/api/1
+    update(@Param('id') id: string, @Body() data: Todo) {
+        return this.appService.update(parseInt(id), {
+            text: data.text,
+            done: data.done,
+        });
+    }
+
+    @Delete(':id') // DELETE http://localhost:3333/api/1
+    @HttpCode(204)
+    remove(@Param('id') id: string) {
+        return this.appService.remove(parseInt(id));
+    }
+
+    //////////////
+    @Get('seedData') // GET http://localhost:3333/api/seedData
+    seedData() {
+        return this.appService.seedData();
     }
 }

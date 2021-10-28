@@ -1,16 +1,33 @@
 import { Injectable } from '@nestjs/common';
 
-interface Todo {
+export interface Todo {
     id: number;
     text: string;
+    active: boolean;
     done: boolean;
 }
 
 export const initialTodos: Todo[] = [
-    { id: 0, text: 'Learn NestJS', done: false },
-    { id: 1, text: 'Learn TypeScript', done: false },
-    { id: 2, text: 'Learn GraphQL', done: false },
-];
+    'NestJS',
+    'GraphQL',
+    'Apollo',
+    'TypeScript',
+    'React',
+    'Redux',
+    'React Query',
+    'Angular',
+    'Vue',
+    'D3',
+    'Svelte',
+    'SolidJS',
+    'NextJS',
+    'AWS',
+].map((text, index) => ({
+    id: index + 1,
+    text: `Learn ${text}`,
+    active: true,
+    done: false,
+}));
 
 @Injectable()
 export class AppService {
@@ -20,24 +37,39 @@ export class AppService {
         return this.todos;
     }
 
-    seedData() {
-        console.log('hi');
-
-        this.todos = initialTodos;
-        return { message: `seed ${this.todos.length} todo(s)` };
+    getOne(id: number) {
+        console.log('getOne', id);
+        return (
+            this.todos.find((todo) => todo.id === id) ?? {
+                error: 'no todo with that id',
+            }
+        );
     }
 
     add(text: string) {
         this.todos.push({
-            id: this.todos.length,
+            id: this.todos.length + 1,
             text,
+            active: true,
             done: false,
         });
     }
 
-    setDone(id: number, done: boolean) {
+    update(id: number, { text, done }: { text: string; done: boolean }) {
         this.todos = this.todos.map((todo) =>
-            todo.id === id ? { ...todo, done } : todo
+            todo.id === id ? { ...todo, text, done } : todo
         );
+    }
+
+    remove(id: number) {
+        this.todos = this.todos.map((todo) =>
+            todo.id === id ? { ...todo, active: false } : todo
+        );
+    }
+
+    seedData() {
+        console.log('seeding data');
+        this.todos = initialTodos;
+        return { message: `seeded ${this.todos.length} todo(s)` };
     }
 }
