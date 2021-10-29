@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Todo } from '@nest-todos/shared-types';
 
+type Text = Pick<Todo, 'text'>;
+
 export const todoApi = createApi({
     reducerPath: 'todoApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3333/api' }),
@@ -26,6 +28,16 @@ export const todoApi = createApi({
                     url: `/${todo.id}`,
                     method: 'DELETE',
                     body: todo,
+                };
+            },
+            invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
+        }),
+        addTodo: builder.mutation<Text, Text>({
+            query(text: Text) {
+                return {
+                    url: `/`,
+                    method: 'POST',
+                    body: text,
                 };
             },
             invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
