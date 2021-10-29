@@ -1,6 +1,9 @@
 import type { Todo } from '@nest-todos/shared-types';
 import { BASE_URL } from '@nest-todos/shared-types';
 
+export const seedData = async (): Promise<string> =>
+    fetch(`${BASE_URL[0]}/seedData`).then((res) => res.json());
+
 export const getTodos = async (): Promise<Todo[]> =>
     fetch(`${BASE_URL[0]}/`).then((res) => res.json());
 

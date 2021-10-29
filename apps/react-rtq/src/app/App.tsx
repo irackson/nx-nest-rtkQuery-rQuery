@@ -9,6 +9,7 @@ export function TodoApp() {
     const [updateTodo] = todoApi.useUpdateTodoMutation();
     const [deleteTodo] = todoApi.useDeleteTodoMutation();
     const [addTodo] = todoApi.useAddTodoMutation();
+    const [resetTodos] = todoApi.useResetTodosMutation();
 
     const textRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +40,10 @@ export function TodoApp() {
             addTodo({ text });
         }
     }, [addTodo]);
+
+    const onReset = useCallback(() => {
+        resetTodos();
+    }, [resetTodos]);
 
     return (
         <div className="App">
@@ -77,6 +82,13 @@ export function TodoApp() {
                     </button>
                 </div>
             </form>
+            <button
+                onClick={(e) => {
+                    e.preventDefault(), onReset();
+                }}
+            >
+                seed data
+            </button>
         </div>
     );
 }

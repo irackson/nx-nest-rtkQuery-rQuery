@@ -2,27 +2,29 @@ import type { Todo } from '@nest-todos/shared-types';
 
 import { Injectable } from '@nestjs/common';
 
-export const initialTodos: Todo[] = [
-    'NestJS',
-    'GraphQL',
-    'Apollo',
-    'TypeScript',
-    'React',
-    'Redux',
-    'React Query',
-    'Angular',
-    'Vue',
-    'D3',
-    'Svelte',
-    'SolidJS',
-    'NextJS',
-    'AWS',
-].map((text, index) => ({
-    id: index + 1,
-    text: `Learn ${text}`,
-    active: true,
-    done: false,
-}));
+export const initialTodos: readonly Todo[] = Object.freeze(
+    [
+        'NestJS',
+        'GraphQL',
+        'Apollo',
+        'TypeScript',
+        'React',
+        'Redux',
+        'React Query',
+        'Angular',
+        'Vue',
+        'D3',
+        'Svelte',
+        'SolidJS',
+        'NextJS',
+        'AWS',
+    ].map((text, index) => ({
+        id: index + 1,
+        text: `Learn ${text}`,
+        active: true,
+        done: false,
+    }))
+);
 
 @Injectable()
 export class AppService {
@@ -33,7 +35,7 @@ export class AppService {
     }
 
     getOne(id: number) {
-        console.log('getOne', id);
+        console.log('getting one: ', id);
         return (
             this.todos.find((todo) => todo.id === id) ?? {
                 error: 'no todo with that id',
@@ -63,8 +65,9 @@ export class AppService {
     }
 
     seedData() {
-        console.log('seeding data');
-        this.todos = initialTodos;
-        return { message: `seeded ${this.todos.length} todo(s)` };
+        this.todos = [...initialTodos];
+        const message = `seeded ${this.todos.length} todo(s)`;
+        console.log(message);
+        return { message };
     }
 }

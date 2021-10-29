@@ -1,5 +1,11 @@
-import type { Todo } from '@nest-todos/shared-types';
-import { getTodos, updateTodo, createTodo, deleteTodo } from '../lib/api';
+import { BASE_URL, Todo } from '@nest-todos/shared-types';
+import {
+    getTodos,
+    updateTodo,
+    createTodo,
+    deleteTodo,
+    seedData,
+} from '../lib/api';
 import './App.css';
 import {
     QueryClient,
@@ -9,14 +15,30 @@ import {
 } from 'react-query';
 import { FC, Fragment, useRef } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import axios from 'axios';
 
 const queryClient = new QueryClient();
 
-export const TodoApp: FC = () => {
+export const axiosClient = axios.create({
+    baseURL: BASE_URL[0],
+});
+
+const TodoApp: FC = () => {
     const textRef = useRef<HTMLInputElement>(null);
 
     const { data: todos } = useQuery<Todo[]>('todos', getTodos, {
         initialData: [],
+    });
+    // const { data: todos } = useQuery<Todo[]>(
+    //     'todos',
+    //     async () => await (await axiosClient.get<Todo[]>('/')).data,
+    //     {
+    //         initialData: [],
+    //     }
+    // );
+
+    const resetMutation = useMutation(seedData, {
+        onSuccess: () => queryClient.invalidateQueries('todos'),
     });
 
     const updateMutation = useMutation(updateTodo, {
@@ -83,6 +105,13 @@ export const TodoApp: FC = () => {
                     </button>
                 </div>
             </form>
+            <button
+                onClick={(e) => {
+                    e.preventDefault(), resetMutation.mutate();
+                }}
+            >
+                seed data
+            </button>
         </div>
     );
 };

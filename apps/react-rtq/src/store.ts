@@ -43,5 +43,9 @@ export const todoApi = createApi({
             },
             invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
         }),
+        resetTodos: builder.mutation<Todo[], void>({
+            query: () => '/seedData',
+            invalidatesTags: [{ type: 'Todos', id: 'LIST' }],
+        }),
     }),
 });
