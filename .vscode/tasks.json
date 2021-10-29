@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "nx serve all",
+            "type": "shell",
+            "command": "npx nx run-many --target=serve --parallel=true --all=true",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "group": "develop"
+            },
+            "runOptions": { "runOn": "folderOpen" }
+        }
+    ]
+}
