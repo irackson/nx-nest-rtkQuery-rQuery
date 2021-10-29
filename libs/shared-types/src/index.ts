@@ -6,3 +6,7 @@ export interface Todo {
     active: boolean;
     done: boolean;
 }
+
+export enum BASE_URL {
+    'http://localhost:3333/api',
+}

@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Todo } from '@nest-todos/shared-types';
+import { BASE_URL } from '@nest-todos/shared-types';
 
 type Text = Pick<Todo, 'text'>;
 
 export const todoApi = createApi({
     reducerPath: 'todoApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3333/api' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL[0] }),
     tagTypes: ['Todos'],
     endpoints: (builder) => ({
         getAll: builder.query<Todo[], void>({

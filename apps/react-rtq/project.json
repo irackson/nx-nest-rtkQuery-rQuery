@@ -45,7 +45,7 @@
                 "buildTarget": "react-rtq:build",
                 "hmr": true,
                 "proxyConfig": "apps/react-rtq/proxy.conf.json",
-                "port": 0
+                "port": 4201
             },
             "configurations": {
                 "production": {

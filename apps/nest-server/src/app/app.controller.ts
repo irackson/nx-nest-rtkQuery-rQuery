@@ -37,6 +37,7 @@ export class AppController {
     }
 
     @Put(':id') // PUT http://localhost:3333/api/1
+    @HttpCode(204)
     update(@Param('id') id: string, @Body() data: Todo) {
         return this.appService.update(parseInt(id), {
             text: data.text,
