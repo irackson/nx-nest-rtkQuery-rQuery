@@ -2,6 +2,7 @@
     "version": 2,
     "projects": {
         "nest-server": "apps/nest-server",
+        "react-r-query": "apps/react-r-query",
         "react-rtq": "apps/react-rtq",
         "shared-types": "libs/shared-types"
     }

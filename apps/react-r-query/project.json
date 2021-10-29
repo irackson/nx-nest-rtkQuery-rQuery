@@ -1,6 +1,6 @@
 {
-    "root": "apps/react-rtq",
-    "sourceRoot": "apps/react-rtq/src",
+    "root": "apps/react-r-query",
+    "sourceRoot": "apps/react-r-query/src",
     "projectType": "application",
     "targets": {
         "build": {
@@ -8,17 +8,17 @@
             "outputs": ["{options.outputPath}"],
             "defaultConfiguration": "production",
             "options": {
-                "outputPath": "dist/apps/react-rtq",
-                "index": "apps/react-rtq/src/index.html",
+                "outputPath": "dist/apps/react-r-query",
+                "index": "apps/react-r-query/src/index.html",
                 "baseHref": "/",
-                "main": "apps/react-rtq/src/main.tsx",
-                "polyfills": "apps/react-rtq/src/polyfills.ts",
-                "tsConfig": "apps/react-rtq/tsconfig.app.json",
+                "main": "apps/react-r-query/src/main.tsx",
+                "polyfills": "apps/react-r-query/src/polyfills.ts",
+                "tsConfig": "apps/react-r-query/tsconfig.app.json",
                 "assets": [
-                    "apps/react-rtq/src/favicon.ico",
-                    "apps/react-rtq/src/assets"
+                    "apps/react-r-query/src/favicon.ico",
+                    "apps/react-r-query/src/assets"
                 ],
-                "styles": ["apps/react-rtq/src/styles.css"],
+                "styles": ["apps/react-r-query/src/styles.css"],
                 "scripts": [],
                 "webpackConfig": "@nrwl/react/plugins/webpack"
             },
@@ -26,8 +26,8 @@
                 "production": {
                     "fileReplacements": [
                         {
-                            "replace": "apps/react-rtq/src/environments/environment.ts",
-                            "with": "apps/react-rtq/src/environments/environment.prod.ts"
+                            "replace": "apps/react-r-query/src/environments/environment.ts",
+                            "with": "apps/react-r-query/src/environments/environment.prod.ts"
                         }
                     ],
                     "optimization": true,
@@ -42,14 +42,13 @@
         "serve": {
             "executor": "@nrwl/web:dev-server",
             "options": {
-                "buildTarget": "react-rtq:build",
+                "buildTarget": "react-r-query:build",
                 "hmr": true,
-                "proxyConfig": "apps/react-rtq/proxy.conf.json",
-                "port": 0
+                "proxyConfig": "apps/react-r-query/proxy.conf.json"
             },
             "configurations": {
                 "production": {
-                    "buildTarget": "react-rtq:build:production",
+                    "buildTarget": "react-r-query:build:production",
                     "hmr": false
                 }
             }
@@ -58,14 +57,14 @@
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
-                "lintFilePatterns": ["apps/react-rtq/**/*.{ts,tsx,js,jsx}"]
+                "lintFilePatterns": ["apps/react-r-query/**/*.{ts,tsx,js,jsx}"]
             }
         },
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/apps/react-rtq"],
+            "outputs": ["coverage/apps/react-r-query"],
             "options": {
-                "jestConfig": "apps/react-rtq/jest.config.js",
+                "jestConfig": "apps/react-r-query/jest.config.js",
                 "passWithNoTests": true
             }
         }
