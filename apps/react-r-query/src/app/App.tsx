@@ -26,32 +26,68 @@ export const axiosClient = axios.create({
 const TodoApp: FC = () => {
     const textRef = useRef<HTMLInputElement>(null);
 
-    const { data: todos } = useQuery<Todo[]>('todos', getTodos, {
-        initialData: [],
-    });
-    // const { data: todos } = useQuery<Todo[]>(
-    //     'todos',
-    //     async () => await (await axiosClient.get<Todo[]>('/')).data,
-    //     {
-    //         initialData: [],
-    //     }
-    // );
+    //* without axios / with axios versions are interchangeable.
+    //* comment out the one you don't want to use.
+    //! without axios
+    // const { data: todos } = useQuery<Todo[]>('todos', getTodos, {
+    //     initialData: [],
+    // });
+    //! with axios
+    const { data: todos } = useQuery<Todo[]>(
+        'todos',
+        async () => await (await axiosClient.get<Todo[]>('/')).data,
+        {
+            initialData: [],
+        }
+    );
 
-    const resetMutation = useMutation(seedData, {
-        onSuccess: () => queryClient.invalidateQueries('todos'),
-    });
+    //! without axios
+    // const resetMutation = useMutation(seedData, {
+    //     onSuccess: () => queryClient.invalidateQueries('todos'),
+    // });
+    //! with axios
+    const resetMutation = useMutation<Response, unknown>(
+        async () => await axiosClient.get('/seedData'),
+        {
+            onSuccess: () => queryClient.invalidateQueries('todos'),
+        }
+    );
 
-    const updateMutation = useMutation(updateTodo, {
-        onSuccess: () => queryClient.invalidateQueries('todos'),
-    });
+    //! without axios
+    // const updateMutation = useMutation(updateTodo, {
+    //     onSuccess: () => queryClient.invalidateQueries('todos'),
+    // });
+    //! with axios
+    const updateMutation = useMutation<Response, unknown, Todo>(
+        (todo) => axiosClient.put(`/${todo.id}`, todo),
+        {
+            onSettled: () => queryClient.invalidateQueries('todos'),
+        }
+    );
 
-    const deleteMutation = useMutation(deleteTodo, {
-        onSuccess: () => queryClient.invalidateQueries('todos'),
-    });
+    //! without axios
+    // const deleteMutation = useMutation(deleteTodo, {
+    //     onSuccess: () => queryClient.invalidateQueries('todos'),
+    // });
+    //! with axios
+    const deleteMutation = useMutation<Response, unknown, number>(
+        (id) => axiosClient.delete(`/${id}`),
+        {
+            onSettled: () => queryClient.invalidateQueries('todos'),
+        }
+    );
 
-    const createMutation = useMutation(createTodo, {
-        onSuccess: () => queryClient.invalidateQueries('todos'),
-    });
+    //! without axios
+    // const createMutation = useMutation(createTodo, {
+    //     onSuccess: () => queryClient.invalidateQueries('todos'),
+    // });
+    //! with axios
+    const createMutation = useMutation<Response, unknown, Todo['text']>(
+        (newText) => axiosClient.post('/', { text: newText }),
+        {
+            onSettled: () => queryClient.invalidateQueries('todos'),
+        }
+    );
 
     return (
         <div className="App">
