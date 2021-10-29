@@ -4,7 +4,7 @@
     "license": "MIT",
     "scripts": {
         "start": "nx serve",
-        "build": "npx nx run-many --target=serve --parallel=true --all=true -- configuration=production",
+        "build": "cross-env NODE_ENV=production && npx nx run-many --target=serve --parallel=true --all=true -- configuration=production",
         "test": "nx test"
     },
     "private": true,
